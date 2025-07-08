@@ -1,4 +1,4 @@
-# Enhanced Novel Crafter - Critical Fixes Implementation
+# Alana's Novel Assistant
 
 This repository contains the implementation of critical fixes for the Enhanced Novel Crafter application, addressing issues identified in the first deployment.
 
