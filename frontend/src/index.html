@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Novel Crafter - Testing Interface</title>
+    <link rel="stylesheet" href="styles.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Enhanced Novel Crafter</h1>
+            <p>Testing Interface for Critical Fixes</p>
+        </header>
+
+        <main>
+            <section class="editor-section">
+                <h2>Text Editor</h2>
+                <div class="editor-container">
+                    <textarea id="text-editor" placeholder="Enter your text here..."></textarea>
+                </div>
+                <div class="editor-controls">
+                    <button id="process-text">Process Text</button>
+                    <button id="export-word">Export to Word</button>
+                    <button id="clear-text">Clear</button>
+                </div>
+            </section>
+
+            <section class="results-section">
+                <h2>Processing Results</h2>
+                <div class="tabs">
+                    <button class="tab-button active" data-tab="grammar">Grammar</button>
+                    <button class="tab-button" data-tab="formatting">Formatting</button>
+                    <button class="tab-button" data-tab="suggestions">Suggestions</button>
+                </div>
+                <div class="tab-content active" id="grammar-tab">
+                    <h3>Grammar Errors</h3>
+                    <div id="grammar-results" class="results-container">
+                        <p>No grammar errors detected yet.</p>
+                    </div>
+                </div>
+                <div class="tab-content" id="formatting-tab">
+                    <h3>Formatting Information</h3>
+                    <div id="formatting-results" class="results-container">
+                        <p>No formatting information available yet.</p>
+                    </div>
+                </div>
+                <div class="tab-content" id="suggestions-tab">
+                    <h3>Suggestions</h3>
+                    <div id="suggestions-results" class="results-container">
+                        <p>No suggestions available yet.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Enhanced Novel Crafter - Testing Interface for Critical Fixes</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

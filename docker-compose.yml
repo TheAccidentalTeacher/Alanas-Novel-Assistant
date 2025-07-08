@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  enhanced-novel-crafter:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app/backend
+      - ./frontend:/app/frontend
+    environment:
+      - NODE_ENV=production
+    restart: unless-stopped
