@@ -1,50 +1,217 @@
-<!DOCTYPE html><html lang="en"><head>    <meta charset="UTF-8">    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <title>Alana Terry - Novelist & Writing Assistant</title>    <link rel="stylesheet" href="styles.css">    <link rel="preconnect" href="https://fonts.googleapis.com">    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></head><body>    <!-- Header -->    <header class="main-header">        <nav class="nav-container">            <div class="logo">                <h1>Alana Terry</h1>                <span>Novelist & Author</span>            </div>            <div class="nav-links">                <a href="#about">About</a>                <a href="#books">Books</a>                <a href="#podcast">Podcast</a>                <a href="#tools">Writing Tools</a>                <a href="#contact">Contact</a>            </div>        </nav>    </header>    <!-- Hero Section -->    <section class="hero">        <div class="hero-content">            <div class="hero-text">                <h1>Welcome to My Writing World</h1>                <p class="hero-subtitle">Author of the Kennedy Stern Christian Suspense Series</p>                <p class="hero-description">Join me on a journey through compelling Christian fiction, where faith meets suspense. As the host of the Praying Christian Women podcast, I'm passionate about inspiring others through storytelling and prayer.</p>                <div class="hero-buttons">                    <button class="btn-primary" onclick="scrollToSection('books')">Explore My Books</button>                    <button class="btn-secondary" onclick="scrollToSection('tools')">Writing Tools</button>                </div>            </div>            <div class="hero-image">                <div class="author-photo-placeholder">                    <div class="photo-icon">📚</div>                    <p>Alana Terry</p>                </div>            </div>        </div>    </section>    <!-- About Section -->    <section id="about" class="about-section">        <div class="container">            <h2>About Alana Terry</h2>            <div class="about-content">                <div class="about-text">                    <p>I'm a Christian fiction author who believes in the power of storytelling to inspire, challenge, and encourage faith. Through my Kennedy Stern Christian Suspense series, I explore themes of justice, forgiveness, and God's unfailing love in the midst of life's darkest moments.</p>                    <p>As the host of the Praying Christian Women podcast, I have the privilege of connecting with women around the world, sharing stories of faith, and encouraging deeper prayer lives. Whether through my novels or podcast, my mission is to point hearts toward Jesus.</p>                    <div class="achievements">                        <div class="achievement">                            <h3>📖</h3>                            <p>Kennedy Stern Series Author</p>                        </div>                        <div class="achievement">                            <h3>🎙️</h3>                            <p>Podcast Host</p>                        </div>                        <div class="achievement">                            <h3>✝️</h3>                            <p>Christian Fiction Advocate</p>                        </div>                    </div>                </div>            </div>        </div>    </section>    <!-- Books Section -->    <section id="books" class="books-section">        <div class="container">            <h2>The Kennedy Stern Christian Suspense Series</h2>            <p class="section-subtitle">Follow Kennedy Stern as she navigates college life, faith, and unexpected mysteries</p>            <div class="books-grid">                <div class="book-card">                    <div class="book-cover">                        <div class="book-placeholder">Book 1</div>                    </div>                    <h3>Kennedy Stern Novel #1</h3>                    <p>The beginning of Kennedy's journey of faith and mystery</p>                </div>                <div class="book-card">                    <div class="book-cover">                        <div class="book-placeholder">Book 2</div>                    </div>                    <h3>Kennedy Stern Novel #2</h3>                    <p>Deeper mysteries and stronger faith</p>                </div>                <div class="book-card">                    <div class="book-cover">                        <div class="book-placeholder">Book 3</div>                    </div>                    <h3>Kennedy Stern Novel #3</h3>                    <p>The series continues with more suspense</p>                </div>                <div class="book-card">                    <div class="book-cover">                        <div class="book-placeholder">More</div>                    </div>                    <h3>More Books</h3>                    <p>Explore the complete series</p>                </div>            </div>        </div>    </section>    <!-- Podcast Section -->    <section id="podcast" class="podcast-section">        <div class="container">            <h2>Praying Christian Women Podcast</h2>            <div class="podcast-content">                <div class="podcast-info">                    <h3>Join Our Community of Prayer</h3>                    <p>The Praying Christian Women podcast is a place where women come together to grow in faith, share prayer requests, and encourage one another in their walk with Christ. Each episode features inspiring stories, practical prayer tips, and heartfelt conversations about living out our faith daily.</p>                    <div class="podcast-features">                        <div class="feature">                            <span class="feature-icon">🙏</span>                            <span>Prayer Focus</span>                        </div>                        <div class="feature">                            <span class="feature-icon">💬</span>                            <span>Real Stories</span>                        </div>                        <div class="feature">                            <span class="feature-icon">✨</span>                            <span>Faith Inspiration</span>                        </div>                    </div>                    <button class="btn-primary">Listen Now</button>                </div>                <div class="podcast-player">                    <div class="player-placeholder">                        <div class="play-icon">▶️</div>                        <p>Latest Episode</p>                        <p class="episode-title">"Finding Peace in Prayer"</p>                    </div>                </div>            </div>        </div>    </section>    <!-- Writing Tools Section -->    <section id="tools" class="tools-section">        <div class="container">            <h2>Professional Writing Tools</h2>            <p class="section-subtitle">The same tools I use to craft my novels - now available to help with your writing journey</p>                        <!-- Tool Categories -->            <div class="tool-categories">                <div class="tool-category">                    <h3>✍️ Writing & Editing</h3>                    <div class="tool-buttons">                        <button class="tool-btn" onclick="showTool('text-editor')">📝 Text Editor</button>                        <button class="tool-btn" onclick="showTool('grammar-check')">✅ Grammar Check</button>                        <button class="tool-btn" onclick="showTool('style-analysis')">🎨 Style Analysis</button>                    </div>                </div>                                <div class="tool-category">                    <h3>📖 Story Development</h3>                    <div class="tool-buttons">                        <button class="tool-btn" onclick="showTool('character-tracker')">👥 Character Tracker</button>                        <button class="tool-btn" onclick="showTool('plot-outliner')">📋 Plot Outliner</button>                        <button class="tool-btn" onclick="showTool('scene-manager')">🎬 Scene Manager</button>                    </div>                </div>                                <div class="tool-category">                    <h3>📊 Analysis & Export</h3>                    <div class="tool-buttons">                        <button class="tool-btn" onclick="showTool('word-count')">📈 Progress Tracking</button>                        <button class="tool-btn" onclick="showTool('export-tools')">📄 Export Tools</button>                        <button class="tool-btn" onclick="showTool('research-notes')">🔍 Research Notes</button>                    </div>                </div>            </div>            <!-- Tool Interface Area -->            <div id="tool-interface" class="tool-interface hidden">                <!-- Text Editor Tool -->                <div id="text-editor-tool" class="tool-content hidden">                    <h3>📝 Professional Text Editor</h3>                    <div class="editor-container">                        <div class="editor-toolbar">                            <button class="toolbar-btn" onclick="processText()">✅ Check Grammar</button>                            <button class="toolbar-btn" onclick="exportToWord()">📄 Export to Word</button>                            <button class="toolbar-btn" onclick="saveText()">💾 Save Work</button>                        </div>                        <textarea id="main-text-editor" placeholder="Start writing your story here...">Welcome to your writing space! This is where your stories come to life.Whether you're crafting your first novel or your tenth, this editor provides the tools you need to write with confidence. Use the grammar checker to polish your prose, export your work to professional formats, and track your progress as you build your masterpiece.Happy writing!</textarea>                        <div class="editor-stats">                            <span id="word-count">Words: 0</span>                            <span id="char-count">Characters: 0</span>                            <span id="reading-time">Reading time: 0 min</span>                        </div>                    </div>                </div>                <!-- Character Tracker Tool -->                <div id="character-tracker-tool" class="tool-content hidden">                    <h3>👥 Character Development Tracker</h3>                    <div class="character-manager">                        <div class="add-character">                            <h4>Add New Character</h4>                            <div class="character-form">                                <input type="text" id="char-name" placeholder="Character Name">                                <select id="char-role">                                    <option value="protagonist">Protagonist</option>                                    <option value="antagonist">Antagonist</option>                                    <option value="supporting">Supporting</option>                                    <option value="minor">Minor Character</option>                                </select>                                <textarea id="char-description" placeholder="Character background, personality, goals..."></textarea>                                <button class="btn-primary" onclick="addCharacter()">Add Character</button>                            </div>                        </div>                        <div class="character-list">                            <h4>Your Characters</h4>                            <div id="characters-display">                                <p class="placeholder-text">No characters added yet. Create your first character above!</p>                            </div>                        </div>                    </div>                </div>                <!-- Grammar Check Tool -->                <div id="grammar-check-tool" class="tool-content hidden">                    <h3>✅ Grammar & Style Analysis</h3>                    <div class="grammar-interface">                        <div class="input-section">                            <h4>Text to Analyze</h4>                            <textarea id="grammar-text" placeholder="Paste your text here for grammar and style analysis..."></textarea>                            <button class="btn-primary" onclick="analyzeGrammar()">Analyze Text</button>                        </div>                        <div class="results-section">                            <h4>Analysis Results</h4>                            <div id="grammar-results">                                <p class="placeholder-text">Enter text above and click "Analyze Text" to see results.</p>                            </div>                        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alana's Writing Workspace</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <nav class="nav-container">
+            <div class="logo">
+                <h1>Alana's Writing Workspace</h1>
+                <span>Kennedy Stern Series & Beyond</span>
+            </div>
+            <div class="nav-links">
+                <a href="#tools">Writing Tools</a>
+                <a href="#recent">Recent Work</a>
+                <a href="#notes">Notes</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Welcome Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Welcome Back, Alana!</h1>
+                <p class="hero-subtitle">Your Personal Writing Sanctuary</p>
+                <p class="hero-description">Everything you need to craft your Kennedy Stern stories and beyond. Your tools, your characters, your world - all in one place.</p>
+                <div class="hero-buttons">
+                    <button class="btn-primary" onclick="showTool('text-editor')">Start Writing</button>
+                    <button class="btn-secondary" onclick="scrollToSection('tools')">All Tools</button>
+                    <button class="btn-secondary" onclick="alert('JavaScript is working!')">Test JS</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="author-photo-placeholder">
+                    <div class="photo-icon">✍️</div>
+                    <p>Your Writing Space</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Writing Tools Section -->
+    <section id="tools" class="tools-section">
+        <div class="container">
+            <h2>Your Writing Tools</h2>
+            <p class="section-subtitle">Professional tools to help you write, edit, and organize your stories</p>
+            
+            <!-- Tool Categories -->
+            <div class="tool-categories">
+                <div class="tool-category">
+                    <h3>✍️ Writing & Editing</h3>
+                    <div class="tool-buttons">
+                        <button class="tool-btn" onclick="showTool('text-editor')">📝 Text Editor</button>
+                        <button class="tool-btn" onclick="showTool('grammar-check')">✅ Grammar Check</button>
+                        <button class="tool-btn" onclick="showTool('style-analysis')">🎨 Style Analysis</button>
+                    </div>
+                </div>
+                
+                <div class="tool-category">
+                    <h3>📖 Story Development</h3>
+                    <div class="tool-buttons">
+                        <button class="tool-btn" onclick="showTool('character-tracker')">👥 Character Tracker</button>
+                        <button class="tool-btn" onclick="showTool('plot-outliner')">📋 Plot Outliner</button>
+                        <button class="tool-btn" onclick="showTool('scene-manager')">🎬 Scene Manager</button>
+                    </div>
+                </div>
+                
+                <div class="tool-category">
+                    <h3>📊 Organization & Export</h3>
+                    <div class="tool-buttons">
+                        <button class="tool-btn" onclick="showTool('word-count')">📈 Progress Tracking</button>
+                        <button class="tool-btn" onclick="showTool('export-tools')">📄 Export Tools</button>
+                        <button class="tool-btn" onclick="showTool('research-notes')">🔍 Research Notes</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tool Interface Area -->
+            <div id="tool-interface" class="tool-interface hidden">
+                <!-- Text Editor Tool -->
+                <div id="text-editor-tool" class="tool-content hidden">
+                    <div class="tool-header">
+                        <h3>📝 Your Writing Space</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
+                    <div class="editor-container">
+                        <div class="editor-toolbar">
+                            <button class="toolbar-btn" onclick="processText()">✅ Check Grammar</button>
+                            <button class="toolbar-btn" onclick="exportToWord()">📄 Copy to Clipboard</button>
+                            <button class="toolbar-btn" onclick="saveText()">💾 Save Work</button>
+                        </div>
+                        <textarea id="main-text-editor" placeholder="Start writing your next Kennedy Stern chapter here...">Welcome to your personal writing space, Alana!
+
+This is where your Kennedy Stern stories come to life. You can:
+• Write and edit your chapters
+• Check grammar and style
+• Track your progress
+• Save your work locally
+• Copy text to Word when you're ready
+
+Your creativity is the limit. Let's bring your next story to life!
+</textarea>
+                        <div class="editor-stats">
+                            <span id="word-count">Words: 0</span>
+                            <span id="char-count">Characters: 0</span>
+                            <span id="reading-time">Reading time: 0 min</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Character Tracker Tool -->
+                <div id="character-tracker-tool" class="tool-content hidden">
+                    <div class="tool-header">
+                        <h3>👥 Character Development</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
+                    <div class="character-manager">
+                        <div class="add-character">
+                            <h4>Add New Character</h4>
+                            <div class="character-form">
+                                <input type="text" id="char-name" placeholder="Character Name (e.g., Kennedy Stern)">
+                                <select id="char-role">
+                                    <option value="protagonist">Protagonist</option>
+                                    <option value="antagonist">Antagonist</option>
+                                    <option value="supporting">Supporting Character</option>
+                                    <option value="minor">Minor Character</option>
+                                </select>
+                                <textarea id="char-description" placeholder="Background, personality, role in story, character arc..."></textarea>
+                                <button class="btn-primary" onclick="addCharacter()">Add Character</button>
+                            </div>
+                        </div>
+                        <div class="character-list">
+                            <h4>Your Characters</h4>
+                            <div id="characters-display">
+                                <p class="placeholder-text">No characters added yet. Create your first character above!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grammar Check Tool -->
+                <div id="grammar-check-tool" class="tool-content hidden">
+                    <div class="tool-header">
+                        <h3>✅ Grammar & Style Analysis</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
+                    <div class="grammar-interface">
+                        <div class="input-section">
+                            <h4>Text to Analyze</h4>
+                            <textarea id="grammar-text" placeholder="Paste your text here for grammar and style analysis..."></textarea>
+                            <button class="btn-primary" onclick="analyzeGrammar()">Analyze Text</button>
+                        </div>
+                        <div class="results-section">
+                            <h4>Analysis Results</h4>
+                            <div id="grammar-results">
+                                <p class="placeholder-text">Enter text above and click "Analyze Text" to see results.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Coming Soon Tool -->
                 <div id="coming-soon-tool" class="tool-content hidden">
-                    <h3>🚧 Coming Soon</h3>
+                    <div class="tool-header">
+                        <h3>🚧 Coming Soon</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
                     <div class="coming-soon">
                         <p>This tool is currently under development. Check back soon for more writing features!</p>
-                        <button class="btn-secondary" onclick="closeTool()">Back to Tools</button>
+                        <p>In the meantime, try the Text Editor, Character Tracker, or Grammar Check tools.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
+    <!-- Recent Work Section -->
+    <section id="recent" class="recent-section">
         <div class="container">
-            <h2>Connect With Me</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Let's Stay Connected</h3>
-                    <p>I love connecting with readers and fellow writers! Whether you have questions about my books, want to share your writing journey, or need prayer, I'd love to hear from you.</p>
-                    <div class="contact-methods">
-                        <div class="contact-method">
-                            <span class="contact-icon">📧</span>
-                            <span>alana@alanaterryauthor.com</span>
-                        </div>
-                        <div class="contact-method">
-                            <span class="contact-icon">🎙️</span>
-                            <span>Praying Christian Women Podcast</span>
-                        </div>
-                        <div class="contact-method">
-                            <span class="contact-icon">📖</span>
-                            <span>Kennedy Stern Series</span>
-                        </div>
-                    </div>
+            <h2>Recent Work</h2>
+            <div class="recent-content">
+                <div class="recent-files">
+                    <h3>📁 Local Storage</h3>
+                    <p>Your work is automatically saved in your browser's local storage.</p>
+                    <button class="btn-secondary" onclick="loadSavedWork()">Load Saved Work</button>
                 </div>
-                <div class="newsletter">
-                    <h3>Join My Newsletter</h3>
-                    <p>Get updates on new books, podcast episodes, and writing tips!</p>
-                    <div class="newsletter-form">
-                        <input type="email" placeholder="Your email address">
-                        <button class="btn-primary">Subscribe</button>
-                    </div>
+                <div class="writing-tips">
+                    <h3>💡 Writing Tips</h3>
+                    <ul>
+                        <li>Save your work frequently using the Save button</li>
+                        <li>Use the Character Tracker to develop consistent characters</li>
+                        <li>Run grammar checks before finalizing chapters</li>
+                        <li>Copy text to Word for final formatting and submission</li>
+                    </ul>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notes Section -->
+    <section id="notes" class="notes-section">
+        <div class="container">
+            <h2>Quick Notes</h2>
+            <div class="notes-content">
+                <textarea id="quick-notes" placeholder="Jot down quick ideas, plot points, or reminders here..."></textarea>
+                <button class="btn-primary" onclick="saveNotes()">Save Notes</button>
             </div>
         </div>
     </section>
@@ -52,27 +219,7 @@
     <!-- Footer -->
     <footer class="main-footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Alana Terry</h4>
-                    <p>Christian fiction author and podcast host, inspiring faith through storytelling.</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <a href="#books">Books</a>
-                    <a href="#podcast">Podcast</a>
-                    <a href="#tools">Writing Tools</a>
-                </div>
-                <div class="footer-section">
-                    <h4>Connect</h4>
-                    <a href="#">Newsletter</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Prayer Requests</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Alana Terry. All rights reserved. | Built with ❤️ for writers and readers.</p>
-            </div>
+            <p>&copy; 2025 Alana's Writing Workspace. Built for creativity and productivity.</p>
         </div>
     </footer>
 
