@@ -8,5 +8,10 @@
   ],
   "cleanUrls": true,
   "trailingSlash": false,
-  "outputDirectory": "frontend/src"
+  "outputDirectory": "frontend/src",
+  "env": {
+    "OPENAI_API_KEY": "@openai_api_key",
+    "PEXELS_API_KEY": "@pexels_api_key", 
+    "PIXABAY_API_KEY": "@pixabay_api_key"
+  }
 }

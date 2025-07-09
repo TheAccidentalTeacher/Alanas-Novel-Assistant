@@ -92,7 +92,9 @@
                     </div>
                     <div class="editor-container">
                         <div class="editor-toolbar">
-                            <button class="toolbar-btn" onclick="processText()">✅ Check Grammar</button>
+                            <button class="toolbar-btn" onclick="processText()">✅ Basic Grammar</button>
+                            <button class="toolbar-btn ai-btn" onclick="analyzeGrammarAI()">🤖 AI Grammar Check</button>
+                            <button class="toolbar-btn ai-btn" onclick="getCreativeHelp()">💡 AI Writing Help</button>
                             <button class="toolbar-btn" onclick="exportToWord()">📄 Copy to Clipboard</button>
                             <button class="toolbar-btn" onclick="saveText()">💾 Save Work</button>
                         </div>
@@ -133,7 +135,11 @@ Your creativity is the limit. Let's bring your next story to life!
                                     <option value="minor">Minor Character</option>
                                 </select>
                                 <textarea id="char-description" placeholder="Background, personality, role in story, character arc..."></textarea>
-                                <button class="btn-primary" onclick="addCharacter()">Add Character</button>
+                                <div class="character-actions">
+                                    <button class="btn-primary" onclick="addCharacter()">Add Character</button>
+                                    <button class="btn-secondary ai-btn" onclick="getCharacterHelp()">🤖 AI Character Help</button>
+                                    <button class="btn-secondary" onclick="searchCharacterImages()">🖼️ Find Character Images</button>
+                                </div>
                             </div>
                         </div>
                         <div class="character-list">
@@ -155,7 +161,10 @@ Your creativity is the limit. Let's bring your next story to life!
                         <div class="input-section">
                             <h4>Text to Analyze</h4>
                             <textarea id="grammar-text" placeholder="Paste your text here for grammar and style analysis..."></textarea>
-                            <button class="btn-primary" onclick="analyzeGrammar()">Analyze Text</button>
+                            <div class="grammar-actions">
+                                <button class="btn-primary" onclick="analyzeGrammar()">Basic Analysis</button>
+                                <button class="btn-primary ai-btn" onclick="analyzeGrammarAI()">🤖 AI Grammar Check</button>
+                            </div>
                         </div>
                         <div class="results-section">
                             <h4>Analysis Results</h4>
@@ -176,7 +185,10 @@ Your creativity is the limit. Let's bring your next story to life!
                         <div class="input-section">
                             <h4>Text to Analyze</h4>
                             <textarea id="style-text" placeholder="Paste your text here for style analysis..."></textarea>
-                            <button class="btn-primary" onclick="analyzeStyle()">Analyze Style</button>
+                            <div class="style-actions">
+                                <button class="btn-primary" onclick="analyzeStyle()">Basic Style Analysis</button>
+                                <button class="btn-primary ai-btn" onclick="analyzeStyleAI()">🤖 AI Style Analysis</button>
+                            </div>
                         </div>
                         <div class="results-section">
                             <h4>Style Analysis Results</h4>
@@ -212,6 +224,7 @@ Your creativity is the limit. Let's bring your next story to life!
                             <button class="btn-primary" onclick="savePlotOutline()">Save Outline</button>
                             <button class="btn-secondary" onclick="loadPlotOutline()">Load Outline</button>
                             <button class="btn-secondary" onclick="exportPlotOutline()">Export Outline</button>
+                            <button class="btn-secondary ai-btn" onclick="getPlotHelp()">🤖 AI Plot Help</button>
                         </div>
                     </div>
                 </div>
@@ -298,6 +311,11 @@ Your creativity is the limit. Let's bring your next story to life!
                                 <h4>📝 Formatted for Submission</h4>
                                 <p>Format text with proper manuscript formatting</p>
                                 <button class="btn-primary" onclick="formatForSubmission()">Format Text</button>
+                            </div>
+                            <div class="export-option">
+                                <h4>🖼️ Book Cover Ideas</h4>
+                                <p>Search for book cover inspiration images</p>
+                                <button class="btn-primary" onclick="searchBookCoverImages()">Find Cover Images</button>
                             </div>
                         </div>
                     </div>

@@ -24,7 +24,18 @@ function initializeApp() {
     window.addCharacter = addCharacter;
     window.deleteCharacter = deleteCharacter;
     window.analyzeGrammar = analyzeGrammar;
+    window.analyzeGrammarAI = analyzeGrammarAI;
     window.analyzeStyle = analyzeStyle;
+    window.analyzeStyleAI = analyzeStyleAI;
+    window.getCreativeHelp = getCreativeHelp;
+    window.getCharacterHelp = getCharacterHelp;
+    window.getPlotHelp = getPlotHelp;
+    window.searchCharacterImages = searchCharacterImages;
+    window.searchBookCoverImages = searchBookCoverImages;
+    window.closeAIModal = closeAIModal;
+    window.copyAIResponse = copyAIResponse;
+    window.closeImageModal = closeImageModal;
+    window.openImageFull = openImageFull;
     window.savePlotOutline = savePlotOutline;
     window.loadPlotOutline = loadPlotOutline;
     window.exportPlotOutline = exportPlotOutline;
@@ -811,4 +822,325 @@ function loadSavedData() {
     }
 }
 
-//# sourceMappingURL=main.js.map
+// AI Assistant Integration
+async function callAI(text, action, context = '') {
+    try {
+        const response = await fetch('/api/ai-assistant', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                text,
+                action,
+                context
+            })
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+            return data.response;
+        } else {
+            console.error('AI Error:', data.error);
+            return data.fallback || 'AI assistance unavailable';
+        }
+    } catch (error) {
+        console.error('AI Request Error:', error);
+        return 'AI assistance temporarily unavailable';
+    }
+}
+
+// Enhanced Grammar Check with AI
+async function analyzeGrammarAI() {
+    const grammarText = document.getElementById('grammar-text');
+    const resultsDiv = document.getElementById('grammar-results');
+    
+    if (!grammarText || !resultsDiv) {
+        alert('Grammar checker interface not found');
+        return;
+    }
+    
+    const text = grammarText.value.trim();
+    if (!text) {
+        alert('Please enter some text to analyze.');
+        return;
+    }
+    
+    resultsDiv.innerHTML = '<p>🤖 AI is analyzing your text for grammar and style...</p>';
+    
+    try {
+        const aiResponse = await callAI(text, 'grammar');
+        
+        // Also run basic analysis
+        const words = text.split(/\s+/).length;
+        const sentences = text.split(/[.!?]+/).length - 1;
+        const avgWordsPerSentence = sentences > 0 ? Math.round(words / sentences) : 0;
+        
+        const results = `
+            <div class="grammar-section">
+                <h5>🤖 AI Grammar & Style Analysis:</h5>
+                <div class="ai-response">${aiResponse.replace(/\n/g, '<br>')}</div>
+            </div>
+            <div class="grammar-section">
+                <h5>📊 Basic Text Stats:</h5>
+                <p><strong>Words:</strong> ${words} | <strong>Sentences:</strong> ${sentences} | <strong>Avg per sentence:</strong> ${avgWordsPerSentence}</p>
+            </div>
+        `;
+        
+        resultsDiv.innerHTML = results;
+    } catch (error) {
+        console.error('AI Grammar Error:', error);
+        // Fallback to basic analysis
+        analyzeGrammar();
+    }
+}
+
+// Enhanced Style Analysis with AI
+async function analyzeStyleAI() {
+    const styleText = document.getElementById('style-text');
+    const resultsDiv = document.getElementById('style-results');
+    
+    if (!styleText || !resultsDiv) {
+        alert('Style analysis interface not found');
+        return;
+    }
+    
+    const text = styleText.value.trim();
+    if (!text) {
+        alert('Please enter some text to analyze.');
+        return;
+    }
+    
+    resultsDiv.innerHTML = '<p>🤖 AI is analyzing your writing style...</p>';
+    
+    try {
+        const aiResponse = await callAI(text, 'style');
+        
+        const results = `
+            <div class="style-section">
+                <h5>🤖 AI Style Analysis:</h5>
+                <div class="ai-response">${aiResponse.replace(/\n/g, '<br>')}</div>
+            </div>
+        `;
+        
+        resultsDiv.innerHTML = results;
+    } catch (error) {
+        console.error('AI Style Error:', error);
+        // Fallback to basic analysis
+        analyzeStyle();
+    }
+}
+
+// AI Creative Writing Assistant
+async function getCreativeHelp() {
+    const textEditor = document.getElementById('main-text-editor');
+    if (!textEditor) {
+        alert('Text editor not found. Open the text editor first.');
+        return;
+    }
+    
+    const text = textEditor.value.trim();
+    const prompt = prompt('What kind of creative help do you need? (e.g., "continue this scene", "develop this character", "overcome writer\'s block")');
+    
+    if (!prompt) return;
+    
+    const context = text ? `Current writing: "${text.substring(0, 200)}..."` : 'Starting new writing';
+    
+    try {
+        const aiResponse = await callAI(prompt, 'creative', context);
+        
+        // Show response in a modal or new section
+        showAIResponse('Creative Writing Help', aiResponse);
+    } catch (error) {
+        console.error('Creative AI Error:', error);
+        alert('Creative assistance temporarily unavailable');
+    }
+}
+
+// AI Character Development Help
+async function getCharacterHelp() {
+    const characters = document.querySelectorAll('.character-card');
+    const characterList = Array.from(characters).map(card => 
+        card.querySelector('h4').textContent
+    ).join(', ');
+    
+    const prompt = prompt('What character development help do you need? (e.g., "develop backstory for Kennedy", "create dialogue for conflict scene")');
+    
+    if (!prompt) return;
+    
+    const context = characterList ? `Existing characters: ${characterList}` : 'Creating new characters';
+    
+    try {
+        const aiResponse = await callAI(prompt, 'character', context);
+        showAIResponse('Character Development Help', aiResponse);
+    } catch (error) {
+        console.error('Character AI Error:', error);
+        alert('Character development assistance temporarily unavailable');
+    }
+}
+
+// AI Plot Development Help
+async function getPlotHelp() {
+    const plotBeginning = document.getElementById('plot-beginning')?.value || '';
+    const plotMiddle = document.getElementById('plot-middle')?.value || '';
+    const plotEnd = document.getElementById('plot-end')?.value || '';
+    
+    const prompt = prompt('What plot help do you need? (e.g., "help with middle act", "resolve plot hole", "strengthen ending")');
+    
+    if (!prompt) return;
+    
+    const context = `Plot outline: Beginning: ${plotBeginning.substring(0, 100)}... Middle: ${plotMiddle.substring(0, 100)}... End: ${plotEnd.substring(0, 100)}...`;
+    
+    try {
+        const aiResponse = await callAI(prompt, 'plot', context);
+        showAIResponse('Plot Development Help', aiResponse);
+    } catch (error) {
+        console.error('Plot AI Error:', error);
+        alert('Plot development assistance temporarily unavailable');
+    }
+}
+
+// Show AI Response in Modal
+function showAIResponse(title, response) {
+    // Create modal if it doesn't exist
+    let modal = document.getElementById('ai-response-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'ai-response-modal';
+        modal.className = 'ai-modal hidden';
+        modal.innerHTML = `
+            <div class="ai-modal-content">
+                <div class="ai-modal-header">
+                    <h3 id="ai-modal-title">AI Assistant</h3>
+                    <button class="close-btn" onclick="closeAIModal()">✖️</button>
+                </div>
+                <div class="ai-modal-body" id="ai-modal-body">
+                    <p>Loading...</p>
+                </div>
+                <div class="ai-modal-footer">
+                    <button class="btn-primary" onclick="copyAIResponse()">Copy Response</button>
+                    <button class="btn-secondary" onclick="closeAIModal()">Close</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+    
+    document.getElementById('ai-modal-title').textContent = title;
+    document.getElementById('ai-modal-body').innerHTML = response.replace(/\n/g, '<br>');
+    modal.classList.remove('hidden');
+}
+
+function closeAIModal() {
+    const modal = document.getElementById('ai-response-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+function copyAIResponse() {
+    const responseText = document.getElementById('ai-modal-body').textContent;
+    navigator.clipboard.writeText(responseText).then(() => {
+        alert('✅ AI response copied to clipboard!');
+    }).catch(() => {
+        alert('❌ Failed to copy response');
+    });
+}
+
+// Image Search Integration
+async function searchImages(query, source = 'pexels') {
+    try {
+        const response = await fetch(`/api/image-search?query=${encodeURIComponent(query)}&source=${source}&per_page=6`);
+        const data = await response.json();
+        
+        if (data.success) {
+            return data.images;
+        } else {
+            console.error('Image Search Error:', data.error);
+            return [];
+        }
+    } catch (error) {
+        console.error('Image Search Request Error:', error);
+        return [];
+    }
+}
+
+// Character Image Search
+async function searchCharacterImages() {
+    const query = prompt('Search for character inspiration images (e.g., "young woman detective", "college student")');
+    if (!query) return;
+    
+    try {
+        const images = await searchImages(query, 'pexels');
+        showImageResults('Character Inspiration', images);
+    } catch (error) {
+        alert('Image search temporarily unavailable');
+    }
+}
+
+// Book Cover Image Search
+async function searchBookCoverImages() {
+    const query = prompt('Search for book cover inspiration (e.g., "mystery book cover", "suspense novel")');
+    if (!query) return;
+    
+    try {
+        const images = await searchImages(query, 'pexels');
+        showImageResults('Book Cover Inspiration', images);
+    } catch (error) {
+        alert('Image search temporarily unavailable');
+    }
+}
+
+// Show Image Search Results
+function showImageResults(title, images) {
+    let modal = document.getElementById('image-results-modal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'image-results-modal';
+        modal.className = 'ai-modal hidden';
+        modal.innerHTML = `
+            <div class="ai-modal-content large">
+                <div class="ai-modal-header">
+                    <h3 id="image-modal-title">Image Search</h3>
+                    <button class="close-btn" onclick="closeImageModal()">✖️</button>
+                </div>
+                <div class="ai-modal-body" id="image-modal-body">
+                    <div class="image-grid" id="image-grid"></div>
+                </div>
+                <div class="ai-modal-footer">
+                    <button class="btn-secondary" onclick="closeImageModal()">Close</button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+    
+    document.getElementById('image-modal-title').textContent = title;
+    
+    const imageGrid = document.getElementById('image-grid');
+    if (images.length === 0) {
+        imageGrid.innerHTML = '<p>No images found. Try a different search term.</p>';
+    } else {
+        imageGrid.innerHTML = images.map(img => `
+            <div class="image-result">
+                <img src="${img.thumbnail}" alt="${img.alt}" onclick="openImageFull('${img.url}')">
+                <p>${img.alt}</p>
+                <small>by ${img.photographer} (${img.source})</small>
+            </div>
+        `).join('');
+    }
+    
+    modal.classList.remove('hidden');
+}
+
+function closeImageModal() {
+    const modal = document.getElementById('image-results-modal');
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+}
+
+function openImageFull(url) {
+    window.open(url, '_blank');
+}
