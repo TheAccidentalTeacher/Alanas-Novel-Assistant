@@ -35,7 +35,6 @@
                 <div class="hero-buttons">
                     <button class="btn-primary" onclick="showTool('text-editor')">Start Writing</button>
                     <button class="btn-secondary" onclick="scrollToSection('tools')">All Tools</button>
-                    <button class="btn-secondary" onclick="alert('JavaScript is working!')">Test JS</button>
                 </div>
             </div>
             <div class="hero-image">
@@ -162,6 +161,174 @@ Your creativity is the limit. Let's bring your next story to life!
                             <h4>Analysis Results</h4>
                             <div id="grammar-results">
                                 <p class="placeholder-text">Enter text above and click "Analyze Text" to see results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Style Analysis Tool -->
+                <div id="style-analysis-tool" class="tool-content hidden">
+                    <div class="tool-header">
+                        <h3>🎨 Style Analysis</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
+                    <div class="style-interface">
+                        <div class="input-section">
+                            <h4>Text to Analyze</h4>
+                            <textarea id="style-text" placeholder="Paste your text here for style analysis..."></textarea>
+                            <button class="btn-primary" onclick="analyzeStyle()">Analyze Style</button>
+                        </div>
+                        <div class="results-section">
+                            <h4>Style Analysis Results</h4>
+                            <div id="style-results">
+                                <p class="placeholder-text">Enter text above and click "Analyze Style" to see results.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plot Outliner Tool -->
+                <div id="plot-outliner-tool" class="tool-content hidden">
+                    <div class="tool-header">
+                        <h3>📋 Plot Outliner</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
+                    <div class="plot-interface">
+                        <div class="plot-sections">
+                            <div class="plot-section">
+                                <h4>Beginning (Act I)</h4>
+                                <textarea id="plot-beginning" placeholder="Setup, inciting incident, plot point 1..."></textarea>
+                            </div>
+                            <div class="plot-section">
+                                <h4>Middle (Act II)</h4>
+                                <textarea id="plot-middle" placeholder="Rising action, midpoint, complications..."></textarea>
+                            </div>
+                            <div class="plot-section">
+                                <h4>End (Act III)</h4>
+                                <textarea id="plot-end" placeholder="Climax, falling action, resolution..."></textarea>
+                            </div>
+                        </div>
+                        <div class="plot-actions">
+                            <button class="btn-primary" onclick="savePlotOutline()">Save Outline</button>
+                            <button class="btn-secondary" onclick="loadPlotOutline()">Load Outline</button>
+                            <button class="btn-secondary" onclick="exportPlotOutline()">Export Outline</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scene Manager Tool -->
+                <div id="scene-manager-tool" class="tool-content hidden">
+                    <div class="tool-header">
+                        <h3>🎬 Scene Manager</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
+                    <div class="scene-interface">
+                        <div class="add-scene">
+                            <h4>Add New Scene</h4>
+                            <div class="scene-form">
+                                <input type="text" id="scene-title" placeholder="Scene Title or Description">
+                                <select id="scene-type">
+                                    <option value="action">Action Scene</option>
+                                    <option value="dialogue">Dialogue Scene</option>
+                                    <option value="description">Description/Setting</option>
+                                    <option value="flashback">Flashback</option>
+                                    <option value="climax">Climax</option>
+                                </select>
+                                <textarea id="scene-notes" placeholder="Scene notes, purpose, mood, key events..."></textarea>
+                                <button class="btn-primary" onclick="addScene()">Add Scene</button>
+                            </div>
+                        </div>
+                        <div class="scene-list">
+                            <h4>Your Scenes</h4>
+                            <div id="scenes-display">
+                                <p class="placeholder-text">No scenes added yet. Create your first scene above!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Tracking Tool -->
+                <div id="word-count-tool" class="tool-content hidden">
+                    <div class="tool-header">
+                        <h3>📈 Progress Tracking</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
+                    <div class="progress-interface">
+                        <div class="progress-stats">
+                            <div class="stat-card">
+                                <h4>Daily Goal</h4>
+                                <input type="number" id="daily-goal" value="500" min="100" max="5000">
+                                <span>words</span>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Today's Progress</h4>
+                                <div id="today-progress">0 words</div>
+                            </div>
+                            <div class="stat-card">
+                                <h4>Total Project</h4>
+                                <div id="total-progress">0 words</div>
+                            </div>
+                        </div>
+                        <div class="progress-actions">
+                            <button class="btn-primary" onclick="updateProgress()">Update from Editor</button>
+                            <button class="btn-secondary" onclick="resetDailyProgress()">Reset Daily</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Export Tools -->
+                <div id="export-tools-tool" class="tool-content hidden">
+                    <div class="tool-header">
+                        <h3>📄 Export Tools</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
+                    <div class="export-interface">
+                        <div class="export-options">
+                            <div class="export-option">
+                                <h4>📋 Copy to Clipboard</h4>
+                                <p>Copy your text for pasting into Word or other applications</p>
+                                <button class="btn-primary" onclick="exportToClipboard()">Copy Text</button>
+                            </div>
+                            <div class="export-option">
+                                <h4>📁 Download as Text File</h4>
+                                <p>Download your work as a .txt file</p>
+                                <button class="btn-primary" onclick="downloadAsText()">Download TXT</button>
+                            </div>
+                            <div class="export-option">
+                                <h4>📝 Formatted for Submission</h4>
+                                <p>Format text with proper manuscript formatting</p>
+                                <button class="btn-primary" onclick="formatForSubmission()">Format Text</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Research Notes Tool -->
+                <div id="research-notes-tool" class="tool-content hidden">
+                    <div class="tool-header">
+                        <h3>🔍 Research Notes</h3>
+                        <button class="close-btn" onclick="closeTool()">✖️ Close</button>
+                    </div>
+                    <div class="research-interface">
+                        <div class="add-research">
+                            <h4>Add Research Note</h4>
+                            <div class="research-form">
+                                <input type="text" id="research-topic" placeholder="Research Topic (e.g., Police Procedures, Medical Details)">
+                                <select id="research-category">
+                                    <option value="character">Character Research</option>
+                                    <option value="setting">Setting/Location</option>
+                                    <option value="technical">Technical Details</option>
+                                    <option value="historical">Historical Context</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <textarea id="research-content" placeholder="Research details, facts, sources, links..."></textarea>
+                                <button class="btn-primary" onclick="addResearchNote()">Add Note</button>
+                            </div>
+                        </div>
+                        <div class="research-list">
+                            <h4>Your Research</h4>
+                            <div id="research-display">
+                                <p class="placeholder-text">No research notes yet. Add your first note above!</p>
                             </div>
                         </div>
                     </div>

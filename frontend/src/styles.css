@@ -764,3 +764,262 @@ html {
 .delete-btn:hover {
     background: #c0392b;
 }
+
+/* Additional Tool Styles */
+
+/* Style Analysis Tool */
+.style-interface {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.style-section {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.style-section h5 {
+    color: #495057;
+    margin-bottom: 0.5rem;
+}
+
+/* Plot Outliner Tool */
+.plot-interface {
+    margin-top: 1rem;
+}
+
+.plot-sections {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.plot-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+}
+
+.plot-section h4 {
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+.plot-section textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-family: inherit;
+    resize: vertical;
+}
+
+.plot-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Scene Manager Tool */
+.scene-interface {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.scene-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.scene-form input,
+.scene-form select,
+.scene-form textarea {
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+.scene-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 1rem;
+}
+
+.scene-card h4 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.scene-type {
+    display: inline-block;
+    background: #17a2b8;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+/* Progress Tracking Tool */
+.progress-interface {
+    margin-top: 1rem;
+}
+
+.progress-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.stat-card h4 {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+.stat-card input {
+    width: 80px;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    margin: 0 0.5rem;
+}
+
+.stat-card div {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.progress-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Export Tools */
+.export-interface {
+    margin-top: 1rem;
+}
+
+.export-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.export-option {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 1px solid #e9ecef;
+    text-align: center;
+}
+
+.export-option h4 {
+    color: #495057;
+    margin-bottom: 1rem;
+}
+
+.export-option p {
+    color: #6c757d;
+    margin-bottom: 1.5rem;
+}
+
+/* Research Notes Tool */
+.research-interface {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.research-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.research-form input,
+.research-form select,
+.research-form textarea {
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-family: inherit;
+}
+
+.research-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 1rem;
+}
+
+.research-card h4 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.research-category {
+    display: inline-block;
+    background: #28a745;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}
+
+.research-date {
+    display: inline-block;
+    color: #6c757d;
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive Design for Tools */
+@media (max-width: 768px) {
+    .style-interface,
+    .scene-interface,
+    .research-interface {
+        grid-template-columns: 1fr;
+    }
+    
+    .plot-sections {
+        grid-template-columns: 1fr;
+    }
+    
+    .progress-stats,
+    .export-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .plot-actions,
+    .progress-actions {
+        flex-direction: column;
+    }
+}

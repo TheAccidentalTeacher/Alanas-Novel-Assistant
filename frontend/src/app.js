@@ -24,6 +24,19 @@ function initializeApp() {
     window.addCharacter = addCharacter;
     window.deleteCharacter = deleteCharacter;
     window.analyzeGrammar = analyzeGrammar;
+    window.analyzeStyle = analyzeStyle;
+    window.savePlotOutline = savePlotOutline;
+    window.loadPlotOutline = loadPlotOutline;
+    window.exportPlotOutline = exportPlotOutline;
+    window.addScene = addScene;
+    window.deleteScene = deleteScene;
+    window.updateProgress = updateProgress;
+    window.resetDailyProgress = resetDailyProgress;
+    window.exportToClipboard = exportToClipboard;
+    window.downloadAsText = downloadAsText;
+    window.formatForSubmission = formatForSubmission;
+    window.addResearchNote = addResearchNote;
+    window.deleteResearchNote = deleteResearchNote;
     window.saveNotes = saveNotes;
     window.loadSavedWork = loadSavedWork;
     
@@ -34,8 +47,9 @@ function initializeApp() {
         updateEditorStats();
     }
     
-    // Load saved notes
+    // Load saved notes and data
     loadNotes();
+    loadSavedData();
     
     console.log('✅ Writing workspace ready!');
 }
@@ -406,49 +420,395 @@ function analyzeGrammar() {
     }, 1000);
 }
 
-// Notes functionality
-function saveNotes() {
-    const notesTextarea = document.getElementById('quick-notes');
-    if (notesTextarea) {
-        const notes = notesTextarea.value;
-        localStorage.setItem('alana-quick-notes', notes);
-        localStorage.setItem('alana-notes-date', new Date().toISOString());
-        alert('✅ Notes saved!');
-    }
-}
-
-function loadNotes() {
-    const savedNotes = localStorage.getItem('alana-quick-notes');
-    const notesTextarea = document.getElementById('quick-notes');
+// Style Analysis Functions
+function analyzeStyle() {
+    const styleText = document.getElementById('style-text');
+    const resultsDiv = document.getElementById('style-results');
     
-    if (savedNotes && notesTextarea) {
-        notesTextarea.value = savedNotes;
+    if (!styleText || !resultsDiv) {
+        alert('Style analysis interface not found');
+        return;
     }
-}
-
-// Load saved work function
-function loadSavedWork() {
-    const savedText = localStorage.getItem('alana-writing-backup');
-    const savedDate = localStorage.getItem('alana-writing-date');
     
-    if (savedText && savedDate) {
-        const formattedDate = new Date(savedDate).toLocaleDateString();
-        const confirmLoad = confirm(`Found saved work from ${formattedDate}. Load it into the text editor?`);
+    const text = styleText.value.trim();
+    if (!text) {
+        alert('Please enter some text to analyze.');
+        return;
+    }
+    
+    console.log('🎨 Analyzing writing style...');
+    resultsDiv.innerHTML = '<p>🔄 Analyzing your writing style...</p>';
+    
+    setTimeout(() => {
+        const words = text.split(/\s+/).length;
+        const sentences = text.split(/[.!?]+/).length - 1;
+        const avgWordsPerSentence = sentences > 0 ? Math.round(words / sentences) : 0;
+        const paragraphs = text.split(/\n\s*\n/).length;
         
-        if (confirmLoad) {
-            showTool('text-editor');
-            setTimeout(() => {
-                const textEditor = document.getElementById('main-text-editor');
-                if (textEditor) {
-                    textEditor.value = savedText;
-                    updateEditorStats();
-                    alert('✅ Saved work loaded!');
-                }
-            }, 500);
-        }
+        // Style analysis
+        const complexWords = text.split(/\s+/).filter(word => word.length > 6).length;
+        const simpleWords = words - complexWords;
+        const readabilityScore = Math.max(1, Math.min(10, 10 - (avgWordsPerSentence / 5) + (simpleWords / words * 2)));
+        
+        const results = `
+            <div class="style-section">
+                <h5>📊 Writing Style Metrics:</h5>
+                <p><strong>Readability Score:</strong> ${readabilityScore.toFixed(1)}/10</p>
+                <p><strong>Average Sentence Length:</strong> ${avgWordsPerSentence} words</p>
+                <p><strong>Complex Words:</strong> ${complexWords} (${((complexWords/words)*100).toFixed(1)}%)</p>
+                <p><strong>Paragraph Count:</strong> ${paragraphs}</p>
+            </div>
+            <div class="style-section">
+                <h5>✍️ Style Recommendations:</h5>
+                <ul>
+                    <li>${avgWordsPerSentence > 20 ? 'Consider varying sentence length for better flow' : 'Good sentence variety'}</li>
+                    <li>${complexWords/words > 0.3 ? 'Consider simplifying some complex words for clarity' : 'Good vocabulary balance'}</li>
+                    <li>${paragraphs < 3 ? 'Consider breaking text into more paragraphs' : 'Good paragraph structure'}</li>
+                    <li>Check for consistent point of view and tense</li>
+                </ul>
+            </div>
+        `;
+        
+        resultsDiv.innerHTML = results;
+    }, 1200);
+}
+
+// Plot Outline Functions
+let plotOutlines = {};
+
+function savePlotOutline() {
+    const beginning = document.getElementById('plot-beginning')?.value || '';
+    const middle = document.getElementById('plot-middle')?.value || '';
+    const end = document.getElementById('plot-end')?.value || '';
+    
+    plotOutlines.current = { beginning, middle, end };
+    localStorage.setItem('alana-plot-outline', JSON.stringify(plotOutlines.current));
+    localStorage.setItem('alana-plot-date', new Date().toISOString());
+    
+    alert('✅ Plot outline saved!');
+}
+
+function loadPlotOutline() {
+    const saved = localStorage.getItem('alana-plot-outline');
+    if (saved) {
+        const outline = JSON.parse(saved);
+        document.getElementById('plot-beginning').value = outline.beginning || '';
+        document.getElementById('plot-middle').value = outline.middle || '';
+        document.getElementById('plot-end').value = outline.end || '';
+        alert('✅ Plot outline loaded!');
     } else {
-        alert('No saved work found.');
+        alert('No saved plot outline found.');
     }
 }
 
-console.log('✅ Alana\'s Writing Tools loaded and ready!');
+function exportPlotOutline() {
+    const beginning = document.getElementById('plot-beginning')?.value || '';
+    const middle = document.getElementById('plot-middle')?.value || '';
+    const end = document.getElementById('plot-end')?.value || '';
+    
+    const outline = `PLOT OUTLINE\n\n=== ACT I: BEGINNING ===\n${beginning}\n\n=== ACT II: MIDDLE ===\n${middle}\n\n=== ACT III: END ===\n${end}`;
+    
+    navigator.clipboard.writeText(outline).then(() => {
+        alert('✅ Plot outline copied to clipboard!');
+    }).catch(() => {
+        // Fallback download
+        const blob = new Blob([outline], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'plot-outline.txt';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        alert('📄 Plot outline downloaded!');
+    });
+}
+
+// Scene Manager Functions
+let scenes = [];
+
+function addScene() {
+    const titleInput = document.getElementById('scene-title');
+    const typeSelect = document.getElementById('scene-type');
+    const notesInput = document.getElementById('scene-notes');
+    
+    if (!titleInput || !typeSelect || !notesInput) {
+        alert('Scene form not found');
+        return;
+    }
+    
+    const title = titleInput.value.trim();
+    const type = typeSelect.value;
+    const notes = notesInput.value.trim();
+    
+    if (!title) {
+        alert('Please enter a scene title.');
+        return;
+    }
+    
+    const scene = {
+        id: Date.now(),
+        title,
+        type,
+        notes: notes || 'No notes provided.'
+    };
+    
+    scenes.push(scene);
+    displayScenes();
+    localStorage.setItem('alana-scenes', JSON.stringify(scenes));
+    
+    // Clear form
+    titleInput.value = '';
+    notesInput.value = '';
+    
+    console.log(`✅ Added scene: ${title}`);
+}
+
+function displayScenes() {
+    const display = document.getElementById('scenes-display');
+    if (!display) return;
+    
+    if (scenes.length === 0) {
+        display.innerHTML = '<p class="placeholder-text">No scenes added yet. Create your first scene above!</p>';
+        return;
+    }
+    
+    const html = scenes.map(scene => `
+        <div class="scene-card" data-id="${scene.id}">
+            <h4>${scene.title}</h4>
+            <span class="scene-type">${scene.type}</span>
+            <p>${scene.notes}</p>
+            <button class="delete-btn" onclick="deleteScene(${scene.id})">🗑️ Delete</button>
+        </div>
+    `).join('');
+    
+    display.innerHTML = html;
+}
+
+function deleteScene(id) {
+    if (confirm('Are you sure you want to delete this scene?')) {
+        scenes = scenes.filter(scene => scene.id !== id);
+        displayScenes();
+        localStorage.setItem('alana-scenes', JSON.stringify(scenes));
+    }
+}
+
+// Progress Tracking Functions
+function updateProgress() {
+    const textEditor = document.getElementById('main-text-editor');
+    if (!textEditor) {
+        alert('Text editor not found. Open the text editor first.');
+        return;
+    }
+    
+    const text = textEditor.value;
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    
+    // Update today's progress
+    const today = new Date().toDateString();
+    let dailyProgress = JSON.parse(localStorage.getItem('alana-daily-progress') || '{}');
+    dailyProgress[today] = words;
+    localStorage.setItem('alana-daily-progress', JSON.stringify(dailyProgress));
+    
+    // Update total progress
+    localStorage.setItem('alana-total-words', words.toString());
+    
+    // Update display
+    document.getElementById('today-progress').textContent = `${words} words`;
+    document.getElementById('total-progress').textContent = `${words} words`;
+    
+    alert(`✅ Progress updated: ${words} words!`);
+}
+
+function resetDailyProgress() {
+    if (confirm('Reset today\'s progress counter?')) {
+        const today = new Date().toDateString();
+        let dailyProgress = JSON.parse(localStorage.getItem('alana-daily-progress') || '{}');
+        dailyProgress[today] = 0;
+        localStorage.setItem('alana-daily-progress', JSON.stringify(dailyProgress));
+        
+        document.getElementById('today-progress').textContent = '0 words';
+        alert('✅ Daily progress reset!');
+    }
+}
+
+// Export Tools Functions
+function exportToClipboard() {
+    const textEditor = document.getElementById('main-text-editor');
+    if (!textEditor) {
+        alert('Text editor not found. Open the text editor first.');
+        return;
+    }
+    
+    const text = textEditor.value.trim();
+    if (!text) {
+        alert('No text to export. Write something first!');
+        return;
+    }
+    
+    navigator.clipboard.writeText(text).then(() => {
+        alert('✅ Text copied to clipboard!');
+    }).catch(() => {
+        alert('❌ Failed to copy to clipboard. Try the download option instead.');
+    });
+}
+
+function downloadAsText() {
+    const textEditor = document.getElementById('main-text-editor');
+    if (!textEditor) {
+        alert('Text editor not found. Open the text editor first.');
+        return;
+    }
+    
+    const text = textEditor.value.trim();
+    if (!text) {
+        alert('No text to export. Write something first!');
+        return;
+    }
+    
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.style.display = 'none';
+    a.href = url;
+    a.download = `alana-writing-${new Date().toISOString().split('T')[0]}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+    
+    alert('📄 Text file downloaded!');
+}
+
+function formatForSubmission() {
+    const textEditor = document.getElementById('main-text-editor');
+    if (!textEditor) {
+        alert('Text editor not found. Open the text editor first.');
+        return;
+    }
+    
+    const text = textEditor.value.trim();
+    if (!text) {
+        alert('No text to format. Write something first!');
+        return;
+    }
+    
+    // Basic manuscript formatting
+    const formatted = text
+        .split('\n\n')
+        .map(paragraph => paragraph.trim())
+        .filter(paragraph => paragraph.length > 0)
+        .map(paragraph => '    ' + paragraph) // Indent paragraphs
+        .join('\n\n');
+    
+    const manuscript = `MANUSCRIPT FORMAT\n\nTitle: [Your Title Here]\nAuthor: Alana Terry\nDate: ${new Date().toLocaleDateString()}\n\n${formatted}`;
+    
+    navigator.clipboard.writeText(manuscript).then(() => {
+        alert('✅ Formatted manuscript copied to clipboard!');
+    }).catch(() => {
+        // Fallback download
+        const blob = new Blob([manuscript], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'formatted-manuscript.txt';
+        a.click();
+        window.URL.revokeObjectURL(url);
+        alert('📄 Formatted manuscript downloaded!');
+    });
+}
+
+// Research Notes Functions
+let researchNotes = [];
+
+function addResearchNote() {
+    const topicInput = document.getElementById('research-topic');
+    const categorySelect = document.getElementById('research-category');
+    const contentInput = document.getElementById('research-content');
+    
+    if (!topicInput || !categorySelect || !contentInput) {
+        alert('Research form not found');
+        return;
+    }
+    
+    const topic = topicInput.value.trim();
+    const category = categorySelect.value;
+    const content = contentInput.value.trim();
+    
+    if (!topic) {
+        alert('Please enter a research topic.');
+        return;
+    }
+    
+    const note = {
+        id: Date.now(),
+        topic,
+        category,
+        content: content || 'No content provided.',
+        date: new Date().toLocaleDateString()
+    };
+    
+    researchNotes.push(note);
+    displayResearchNotes();
+    localStorage.setItem('alana-research', JSON.stringify(researchNotes));
+    
+    // Clear form
+    topicInput.value = '';
+    contentInput.value = '';
+    
+    console.log(`✅ Added research note: ${topic}`);
+}
+
+function displayResearchNotes() {
+    const display = document.getElementById('research-display');
+    if (!display) return;
+    
+    if (researchNotes.length === 0) {
+        display.innerHTML = '<p class="placeholder-text">No research notes yet. Add your first note above!</p>';
+        return;
+    }
+    
+    const html = researchNotes.map(note => `
+        <div class="research-card" data-id="${note.id}">
+            <h4>${note.topic}</h4>
+            <span class="research-category">${note.category}</span>
+            <span class="research-date">${note.date}</span>
+            <p>${note.content}</p>
+            <button class="delete-btn" onclick="deleteResearchNote(${note.id})">🗑️ Delete</button>
+        </div>
+    `).join('');
+    
+    display.innerHTML = html;
+}
+
+function deleteResearchNote(id) {
+    if (confirm('Are you sure you want to delete this research note?')) {
+        researchNotes = researchNotes.filter(note => note.id !== id);
+        displayResearchNotes();
+        localStorage.setItem('alana-research', JSON.stringify(researchNotes));
+    }
+}
+
+// Load saved data on initialization
+function loadSavedData() {
+    // Load scenes
+    const savedScenes = localStorage.getItem('alana-scenes');
+    if (savedScenes) {
+        scenes = JSON.parse(savedScenes);
+        displayScenes();
+    }
+    
+    // Load research notes
+    const savedResearch = localStorage.getItem('alana-research');
+    if (savedResearch) {
+        researchNotes = JSON.parse(savedResearch);
+        displayResearchNotes();
+    }
+    
+    // Load plot outline
+    const savedPlot = localStorage.getItem('alana-plot-outline');
+    if (savedPlot) {
+        plotOutlines.current = JSON.parse(savedPlot);
+    }
+}
+
+//# sourceMappingURL=main.js.map
