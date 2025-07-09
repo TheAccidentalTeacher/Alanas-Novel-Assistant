@@ -6,21 +6,9 @@ console.log('🚀 JavaScript file loaded!');
 // Global variables for character storage
 let characters = [];
 
-// Test function for debugging
-function testButtonClick() {
-    console.log('🧪 Test button clicked!');
-    alert('✅ JavaScript is working! Testing navigation...');
-    
-    // Test showing text editor directly
-    showFeature('text-editor');
-}
-
 // Main feature navigation function
 function showFeature(featureName) {
     console.log(`🎬 Showing feature: ${featureName}`);
-    
-    // Enhanced debugging
-    alert(`🎯 Trying to show feature: ${featureName}`);
     
     try {
         // Hide all sections first
@@ -29,22 +17,13 @@ function showFeature(featureName) {
             'grammar-check', 'coming-soon'
         ];
         
-        let hiddenCount = 0;
-        let foundSections = [];
-        
         allSections.forEach(sectionId => {
             const section = document.getElementById(sectionId);
             if (section) {
                 section.classList.remove('active-feature');
-                hiddenCount++;
-                foundSections.push(sectionId);
                 console.log(`➖ Hid section: ${sectionId}`);
-            } else {
-                console.log(`⚠️ Section not found: ${sectionId}`);
             }
         });
-        
-        alert(`🔄 Found ${foundSections.length} sections: ${foundSections.join(', ')}`);
         
         // Determine target section
         let targetSectionId;
@@ -60,23 +39,19 @@ function showFeature(featureName) {
         if (targetSection) {
             targetSection.classList.add('active-feature');
             console.log(`✅ Showed section: ${targetSectionId}`);
-            alert(`✅ Successfully showed: ${targetSectionId}. Check if it's visible!`);
             
             // Scroll to top for better UX
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
             console.error(`❌ Section not found: ${targetSectionId}`);
-            alert(`❌ Section not found: ${targetSectionId}`);
         }
         
     } catch (error) {
         console.error('❌ Error in showFeature:', error);
-        alert(`❌ Error in showFeature: ${error.message}`);
     }
 }
 
 // Make functions available globally immediately
-window.testButtonClick = testButtonClick;
 window.showFeature = showFeature;
 
 // Initialize when DOM is ready
