@@ -1,9 +1,12 @@
 {
   "name": "enhanced-novel-crafter",
   "version": "1.0.0",
-  "description": "Enhanced Novel Crafter with critical fixes",
-  "main": "index.js",
+  "description": "Enhanced Novel Crafter with critical fixes - Vercel deployment",
+  "main": "api/process-text.js",
   "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required for static frontend'",
+    "start": "vercel dev",
     "test": "jest --config tests/jest.config.js",
     "test:watch": "jest --config tests/jest.config.js --watch",
     "test:coverage": "jest --config tests/jest.config.js --coverage"
@@ -12,6 +15,10 @@
     "docx": "^7.8.2"
   },
   "devDependencies": {
-    "jest": "^29.6.2"
+    "jest": "^29.6.2",
+    "@vercel/node": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

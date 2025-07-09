@@ -111,93 +111,67 @@ The protagonist walked into the room. She looked around nervously.`;
         suggestionsResults.innerHTML = '<p>No suggestions available yet.</p>';
     });
 
-    // Mock API functions (to be replaced with actual API calls)
+    // API functions for Vercel deployment
     async function processText(text) {
-        // This is a mock implementation
-        // In a real implementation, this would call the backend API
-        
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // For testing purposes, we'll create a mock response
-        // that mimics the structure of the TextProcessingService output
-        return {
-            originalText: text,
-            preservedFormatting: {
-                paragraphCount: text.split(/\n\s*\n/).length,
-                paragraphs: text.split(/\n\s*\n/).map((p, i, arr) => ({
-                    content: p.trim(),
-                    startIndex: text.indexOf(p),
-                    endIndex: text.indexOf(p) + p.length,
-                    followedByBreak: i < arr.length - 1
-                })),
-                lineBreaks: (text.match(/\n/g) || []).length
-            },
-            grammarErrors: [
-                {
-                    type: 'there_their_theyre',
-                    position: text.indexOf('There'),
-                    length: 5,
-                    original: 'There',
-                    suggestion: 'Check if this should be "there" (location), "their" (possession), or "they\'re" (they are)',
-                    explanation: 'Common confusion between there/their/they\'re',
-                    confidence: 0.6
+        try {
+            const response = await fetch('/api/process-text', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                {
-                    type: 'your_youre',
-                    position: text.indexOf('Your'),
-                    length: 4,
-                    original: 'Your',
-                    suggestion: 'Check if this should be "your" (possession) or "you\'re" (you are)',
-                    explanation: 'Common confusion between your/you\'re',
-                    confidence: 0.7
+                body: JSON.stringify({ text })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('Error calling process-text API:', error);
+            throw error;
+        }
+    }
+    
+    async function exportToWord(text, options = {}) {
+        try {
+            const response = await fetch('/api/export-word', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
                 },
-                {
-                    type: 'its_its',
-                    position: text.indexOf('Its'),
-                    length: 3,
-                    original: 'Its',
-                    suggestion: 'Check if this should be "its" (possession) or "it\'s" (it is/it has)',
-                    explanation: 'Common confusion between its/it\'s',
-                    confidence: 0.8
-                },
-                {
-                    type: 'capitalization',
-                    position: text.indexOf('this is another'),
-                    length: 4,
-                    original: 'this',
-                    suggestion: 'Consider capitalizing the first letter after the period',
-                    explanation: 'Sentences should start with a capital letter',
-                    confidence: 0.9
-                },
-                {
-                    type: 'double_negative',
-                    position: text.indexOf('don\'t have nothing'),
-                    length: 18,
-                    original: 'don\'t have nothing',
-                    suggestion: 'Consider rephrasing to avoid double negative',
-                    explanation: 'Double negatives can be confusing or change the intended meaning',
-                    confidence: 0.8
-                },
-                {
-                    type: 'passive_voice',
-                    position: text.indexOf('was wrote'),
-                    length: 9,
-                    original: 'was wrote',
-                    suggestion: 'Consider using active voice for stronger writing',
-                    explanation: 'Passive voice can make writing less direct and engaging',
-                    confidence: 0.6
-                }
-            ],
-            suggestions: [
-                {
-                    type: 'grammar_correction',
-                    position: text.indexOf('Your going'),
-                    original: 'Your going',
-                    suggestion: 'You\'re going',
-                    explanation: 'Use "you\'re" (contraction of "you are") instead of "your" (possessive)',
-                    confidence: 0.9,
-                    autoApply: false,
+                body: JSON.stringify({ 
+                    text, 
+                    options: {
+                        title: 'My Novel Chapter',
+                        author: 'Novel Assistant User',
+                        ...options
+                    }
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            // Handle file download
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'novel-chapter.docx';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            
+            return { success: true };
+        } catch (error) {
+            console.error('Error calling export-word API:', error);
+            throw error;
+        }
+    }
                     requiresUserApproval: true
                 },
                 {
@@ -248,15 +222,66 @@ The protagonist walked into the room. She looked around nervously.`;
         };
     }
 
-    async function exportToWord(text) {
-        // This is a mock implementation
-        // In a real implementation, this would call the backend API
-        
-        // Simulate API call delay
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        
-        // For testing purposes, we'll just show an alert
-        alert('Word document export successful! (This is a mock implementation)');
+    // API functions for Vercel deployment
+    async function processText(text) {
+        try {
+            const response = await fetch('/api/process-text', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ text })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            return await response.json();
+        } catch (error) {
+            console.error('Error calling process-text API:', error);
+            throw error;
+        }
+    }
+
+    async function exportToWord(text, options = {}) {
+        try {
+            const response = await fetch('/api/export-word', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ 
+                    text, 
+                    options: {
+                        title: 'My Novel Chapter',
+                        author: 'Novel Assistant User',
+                        ...options
+                    }
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            // Handle file download
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'novel-chapter.docx';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            document.body.removeChild(a);
+            
+            return { success: true };
+        } catch (error) {
+            console.error('Error calling export-word API:', error);
+            throw error;
+        }
     }
 
     // Display functions
