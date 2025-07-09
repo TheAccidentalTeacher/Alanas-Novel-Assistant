@@ -14,22 +14,27 @@
             <p>Your Complete Writing Platform with 35+ Professional Features</p>
             
             <!-- Test Button -->
-            <button onclick="testButtonClick()" style="background: red; color: white; padding: 10px; margin: 10px;">🧪 TEST BUTTON - Click Me</button>
+            <div style="text-align: center; margin: 20px 0; padding: 15px; background: #ff6b6b; border-radius: 10px;">
+                <button onclick="testButtonClick()" style="background: #fff; color: #ff6b6b; padding: 15px 30px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer;">
+                    🧪 TEST BUTTON - Click to Test JavaScript
+                </button>
+                <p style="color: white; margin: 10px 0 0 0;">If this button works, JavaScript is loaded correctly</p>
+            </div>
             
             <!-- Feature Menu Banner -->
             <nav class="feature-menu">
                 <div class="menu-section">
                     <h3>✍️ Writing Tools</h3>
-                    <button class="feature-btn" data-feature="text-editor">Text Editor</button>
-                    <button class="feature-btn" data-feature="grammar-check">Grammar Check</button>
+                    <button class="feature-btn" data-feature="text-editor" onclick="showFeature('text-editor')">Text Editor</button>
+                    <button class="feature-btn" data-feature="grammar-check" onclick="showFeature('grammar-check')">Grammar Check</button>
                     <button class="feature-btn" data-feature="spell-check">Spell Check</button>
                     <button class="feature-btn" data-feature="style-analysis">Style Analysis</button>
                 </div>
                 
                 <div class="menu-section">
                     <h3>📖 Story Development</h3>
-                    <button class="feature-btn" data-feature="character-tracker">Character Tracker</button>
-                    <button class="feature-btn" data-feature="plot-outliner">Plot Outliner</button>
+                    <button class="feature-btn" data-feature="character-tracker" onclick="showFeature('character-tracker')">Character Tracker</button>
+                    <button class="feature-btn" data-feature="plot-outliner" onclick="showFeature('plot-outliner')">Plot Outliner</button>
                     <button class="feature-btn" data-feature="scene-manager">Scene Manager</button>
                     <button class="feature-btn" data-feature="timeline-tracker">Timeline</button>
                 </div>

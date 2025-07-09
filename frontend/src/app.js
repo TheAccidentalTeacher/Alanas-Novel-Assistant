@@ -1,97 +1,197 @@
 // Alana's Novel Assistant - Enhanced Interface
 
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('DOM Content Loaded');
-    initializeApp();
-});
+// Test if JavaScript is loading
+console.log('🚀 JavaScript file loaded!');
 
-// Test function to verify buttons work
+// Alana's Novel Assistant - Enhanced Interface
+
+// Test if JavaScript is loading
+console.log('🚀 JavaScript file loaded!');
+
+// Immediate test function
 function testButtonClick() {
-    console.log('Test button clicked!');
-    alert('Button click is working!');
-    showFeature('text-editor');
+    console.log('🧪 Test button clicked!');
+    alert('✅ JavaScript is working! Now testing feature navigation...');
+    
+    // Test showing text editor directly
+    const textEditorSection = document.getElementById('text-editor');
+    const welcomeSection = document.getElementById('welcome');
+    
+    if (textEditorSection && welcomeSection) {
+        welcomeSection.classList.remove('active-feature');
+        textEditorSection.classList.add('active-feature');
+        alert('✅ Text editor should now be visible!');
+    } else {
+        alert('❌ Could not find sections. Check HTML structure.');
+    }
 }
 
-// Make test function globally available
+function showFeature(featureName) {
+    console.log(`🎬 Showing feature: ${featureName}`);
+    
+    try {
+        // Hide all sections first
+        const allSections = [
+            'welcome', 'text-editor', 'character-tracker', 'plot-outliner', 
+            'grammar-check', 'coming-soon'
+        ];
+        
+        allSections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.remove('active-feature');
+                console.log(`➖ Hid section: ${sectionId}`);
+            }
+        });
+        
+        // Determine target section
+        let targetSectionId;
+        if (['text-editor', 'character-tracker', 'plot-outliner', 'grammar-check', 'welcome'].includes(featureName)) {
+            targetSectionId = featureName;
+        } else {
+            targetSectionId = 'coming-soon';
+            console.log(`🚧 Feature "${featureName}" not implemented, showing coming-soon`);
+        }
+        
+        // Show target section
+        const targetSection = document.getElementById(targetSectionId);
+        if (targetSection) {
+            targetSection.classList.add('active-feature');
+            console.log(`✅ Showed section: ${targetSectionId}`);
+            
+            // Scroll to top for better UX
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            console.error(`❌ Section not found: ${targetSectionId}`);
+        }
+        
+    } catch (error) {
+        console.error('❌ Error in showFeature:', error);
+    }
+}
+
+// Make functions available globally immediately
 window.testButtonClick = testButtonClick;
+window.showFeature = showFeature;
+
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('✅ DOM Content Loaded');
+    initializeApp();
+});
 
 // Global variables for character storage
 let characters = [];
 
 function initializeApp() {
-    console.log('Initializing Alana\'s Novel Assistant...');
+    console.log('🔧 Initializing Alana\'s Novel Assistant...');
     
-    // Wait a bit for DOM to be fully ready
+    // Add a small delay to ensure DOM is fully ready
     setTimeout(() => {
-        setupFeatureNavigation();
-        initializeTextEditor();
-        initializeCharacterTracker();
-        setupTabs();
-        loadSampleContent();
-        showFeature('welcome');
-        console.log('App initialization complete!');
-    }, 100);
+        try {
+            setupFeatureNavigation();
+            initializeTextEditor();
+            initializeCharacterTracker();
+            setupTabs();
+            loadSampleContent();
+            showFeature('welcome');
+            console.log('✅ App initialization complete!');
+        } catch (error) {
+            console.error('❌ Error during initialization:', error);
+        }
+    }, 500);
 }
 
-// Feature Navigation System
+// Simplified and more robust feature navigation
 function setupFeatureNavigation() {
-    const featureButtons = document.querySelectorAll('.feature-btn');
-    console.log('Found feature buttons:', featureButtons.length);
+    console.log('🔧 Setting up feature navigation...');
     
-    if (featureButtons.length === 0) {
-        console.error('No feature buttons found! Check HTML structure.');
-        return;
+    // Use a more direct approach to find buttons
+    const buttons = document.getElementsByClassName('feature-btn');
+    console.log(`📊 Found ${buttons.length} feature buttons`);
+    
+    if (buttons.length === 0) {
+        console.error('❌ No feature buttons found! Trying alternative selector...');
+        const altButtons = document.querySelectorAll('[data-feature]');
+        console.log(`📊 Alternative search found ${altButtons.length} buttons`);
     }
     
-    featureButtons.forEach((button, index) => {
+    // Convert HTMLCollection to Array for easier handling
+    Array.from(buttons).forEach((button, index) => {
         const feature = button.getAttribute('data-feature');
-        console.log(`Button ${index}:`, feature);
+        console.log(`🔘 Button ${index + 1}: ${feature}`);
         
-        button.addEventListener('click', (e) => {
+        // Remove any existing event listeners and add new ones
+        button.onclick = function(e) {
             e.preventDefault();
-            console.log('Clicked feature:', feature);
-            // Temporary alert for debugging
-            alert(`Clicked: ${feature}`);
+            e.stopPropagation();
+            console.log(`🎯 Clicked feature: ${feature}`);
+            
+            // Show immediate feedback
+            button.style.background = '#27ae60';
+            setTimeout(() => {
+                button.style.background = '';
+            }, 200);
+            
+            // Show the feature
             showFeature(feature);
             
-            featureButtons.forEach(btn => btn.classList.remove('active'));
+            // Update button states
+            Array.from(buttons).forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
-        });
+            
+            return false;
+        };
         
-        // Also add some visual feedback
-        button.addEventListener('mouseenter', () => {
-            console.log('Hovering over:', feature);
+        // Also add event listener as backup
+        button.addEventListener('click', function(e) {
+            console.log(`🔄 Event listener backup triggered for: ${feature}`);
         });
     });
+    
+    console.log('✅ Feature navigation setup complete');
 }
 
 function showFeature(featureName) {
-    console.log('Showing feature:', featureName);
-    const allSections = document.querySelectorAll('.feature-section, .welcome-section');
-    console.log('Found sections:', allSections.length);
+    console.log(`🎬 Showing feature: ${featureName}`);
     
-    allSections.forEach(section => {
-        section.classList.remove('active-feature');
-    });
-    
-    let targetSection;
-    if (featureName === 'welcome') {
-        targetSection = document.getElementById('welcome');
-    } else if (featureName === 'grammar-check') {
-        targetSection = document.getElementById('grammar-check');
-    } else if (document.getElementById(featureName)) {
-        targetSection = document.getElementById(featureName);
-    } else {
-        targetSection = document.getElementById('coming-soon');
-        console.log('Feature not implemented, showing coming-soon');
-    }
-    
-    console.log('Target section:', targetSection);
-    if (targetSection) {
-        targetSection.classList.add('active-feature');
-        console.log('Section activated:', targetSection.id);
-    } else {
-        console.error('No target section found for:', featureName);
+    try {
+        // Hide all sections first
+        const allSections = [
+            'welcome', 'text-editor', 'character-tracker', 'plot-outliner', 
+            'grammar-check', 'coming-soon'
+        ];
+        
+        allSections.forEach(sectionId => {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.classList.remove('active-feature');
+                console.log(`➖ Hid section: ${sectionId}`);
+            }
+        });
+        
+        // Determine target section
+        let targetSectionId;
+        if (['text-editor', 'character-tracker', 'plot-outliner', 'grammar-check', 'welcome'].includes(featureName)) {
+            targetSectionId = featureName;
+        } else {
+            targetSectionId = 'coming-soon';
+            console.log(`🚧 Feature "${featureName}" not implemented, showing coming-soon`);
+        }
+        
+        // Show target section
+        const targetSection = document.getElementById(targetSectionId);
+        if (targetSection) {
+            targetSection.classList.add('active-feature');
+            console.log(`✅ Showed section: ${targetSectionId}`);
+            
+            // Scroll to top for better UX
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            console.error(`❌ Section not found: ${targetSectionId}`);
+        }
+        
+    } catch (error) {
+        console.error('❌ Error in showFeature:', error);
     }
 }
 
